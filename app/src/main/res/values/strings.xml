@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Echat</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="loginBtn">LOGIN</string>
+    <string name="display_name">Display name</string>
+    <string name="repeat_password">Repeat password</string>
+    <string name="register">REGISTER</string>
+    <string name="welcome_back">WELCOME BACK!</string>
+    <string name="login">LOGIN</string>
+    <string name="create_account">create now!</string>
+    <string name="no_account">No Account?</string>
+    <string name="here">here</string>
+    <string name="already_registered_click">Already registered? click</string>
+    <string name="send">send</string>
+    <string name="enter_your_message_here">Enter your message here</string>
+</resources>

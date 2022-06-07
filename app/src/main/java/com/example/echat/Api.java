@@ -9,5 +9,5 @@ public interface Api {
 
     String BASE_URL = "https://localhost:7213/api/contacts/users/";
     @GET("marvel")
-    Call<List<Results>> getsuperHeroes();
+    Call<List<Results>> getUsers();
 }

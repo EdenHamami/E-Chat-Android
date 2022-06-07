@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,8 +14,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class
-MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
     private EditText userName;
     private EditText password;
     private TextView create_account;
@@ -32,23 +30,23 @@ MainActivity extends AppCompatActivity {
         });
 
 
-        getSuperHeroes();
+        getUsers();
 
     }
 
-    private void getSuperHeroes() {
-        Call<List<Results>> call = RetrofitClient.getInstance().getMyApi().getsuperHeroes();
+    private void getUsers() {
+        Call<List<Results>> call = RetrofitClient.getInstance().getMyApi().getUsers();
         call.enqueue(new Callback<List<Results>>() {
             @Override
             public void onResponse(Call<List<Results>> call, Response<List<Results>> response) {
-                List<Results> myheroList = response.body();
-                String[] oneHeroes = new String[myheroList.size()];
+                List<Results> myUserList = response.body();
+                String[] users = new String[myUserList.size()];
 
-                for (int i = 0; i < myheroList.size(); i++) {
-                    oneHeroes[i] = myheroList.get(i).getName();
+                for (int i = 0; i < myUserList.size(); i++) {
+                    users[i] = myUserList.get(i).getName();
                 }
 
-                //superListView.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, oneHeroes));
+                //superListView.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, users));
             }
 
             @Override

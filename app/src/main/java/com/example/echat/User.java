@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Results {
+public class User {
 
     @SerializedName("userName")
     private String userName;
@@ -22,7 +22,7 @@ public class Results {
     private List<Contact> myContacts;
 
 
-    public Results(String userName, String name, String password, String picture, List<Contact> myContacts) {
+    public User(String userName, String name, String password, String picture, List<Contact> myContacts) {
         this.userName = userName;
         this.name = name;
         this.password = password;

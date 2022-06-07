@@ -13,6 +13,7 @@
     <LinearLayout
         android:layout_width="341dp"
         android:layout_height="347dp"
+        android:animationCache="true"
         android:background="@color/contentB"
         android:orientation="vertical"
         android:outlineAmbientShadowColor="@color/black"
@@ -37,7 +38,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/editTextPee"
+            android:id="@+id/UserName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -49,7 +50,7 @@
 
 
         <EditText
-            android:id="@+id/editTextTextPassword"
+            android:id="@+id/Password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -86,7 +87,9 @@
             android:layout_width="231dp"
             android:layout_height="60dp"
             android:layout_gravity="center"
-            android:text="@string/login" />
+            android:onClick="loginUser"
+            android:text="@string/login"
+            tools:ignore="OnClick" />
 
 
     </LinearLayout>

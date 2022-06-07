@@ -1,8 +1,10 @@
 package com.example.echat;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Results {
 
-    //@SerializedName("name")
+    @SerializedName("name")
     private String superName;
 
 

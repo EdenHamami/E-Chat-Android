@@ -15,7 +15,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class
+MainActivity extends AppCompatActivity {
     private EditText userName;
     private EditText password;
     private TextView create_account;
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        //getSuperHeroes();
+        getSuperHeroes();
 
     }
 

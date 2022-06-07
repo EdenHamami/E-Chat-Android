@@ -30,30 +30,32 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        getUsers();
+        User[] users = getUsers();
 
     }
 
-    private void getUsers() {
-        Call<List<Results>> call = RetrofitClient.getInstance().getMyApi().getUsers();
-        call.enqueue(new Callback<List<Results>>() {
+    private User[] getUsers() {
+        final User[][] users = new User[1][1];
+        Call<List<User>> call = RetrofitClient.getInstance().getMyApi().getUsers();
+        call.enqueue(new Callback<List<User>>() {
             @Override
-            public void onResponse(Call<List<Results>> call, Response<List<Results>> response) {
-                List<Results> myUserList = response.body();
-                String[] users = new String[myUserList.size()];
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                List<User> myUserList = response.body();
+                users[0] = new User[myUserList.size()];
 
                 for (int i = 0; i < myUserList.size(); i++) {
-                    users[i] = myUserList.get(i).getName();
+                    users[0][i] = myUserList.get(i).getUser();
                 }
 
                 //superListView.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, users));
             }
 
             @Override
-            public void onFailure(Call<List<Results>> call, Throwable t) {
+            public void onFailure(Call<List<User>> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "An error has occured", Toast.LENGTH_LONG).show();
             }
 
         });
+        return users[0];
     }
 }

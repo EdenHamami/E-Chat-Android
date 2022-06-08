@@ -14,7 +14,7 @@ public interface Api {
     Call<List<User>> getUsers();
 
     @POST("users")
-    Call<User> createUser(@Body User user);
+    Call<List<String>> createUser(@Body List<String> user);
 
     @POST("{UserName}")
     Call<Contact> createContact(@Body Contact contact);

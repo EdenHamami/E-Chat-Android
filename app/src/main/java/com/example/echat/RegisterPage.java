@@ -95,7 +95,10 @@ public class RegisterPage extends AppCompatActivity {
             return;
         } else {
             List<Contact> myContacts = new ArrayList<Contact>();
-            User user = new User(userName.getText().toString(), displayName.getText().toString(), password.getText().toString(), null, myContacts);
+            List<String> user = new ArrayList<>();
+            user.add(userName.getText().toString());
+            user.add(displayName.getText().toString());
+            user.add(password.getText().toString());
 
             createUser(user);
             Intent i = new Intent(this, chatPage.class);
@@ -103,18 +106,18 @@ public class RegisterPage extends AppCompatActivity {
         }
     }
 
-    private void createUser(@Body User user) {
+    private void createUser(@Body List<String> user) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://reqres.in/api/")
+                .baseUrl(Api.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         Api retrofitAPI = retrofit.create(Api.class);
 
-        Call<User> call = retrofitAPI.createUser(user);
+        Call<List<String>> call = retrofitAPI.createUser(user);
 
-        call.enqueue(new Callback<User>() {
+        call.enqueue(new Callback<List<String>>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
+            public void onResponse(Call<List<String>> call, Response<List<String>> response) {
                 Toast.makeText(RegisterPage.this, "Data added to API", Toast.LENGTH_SHORT).show();
 
 //                jobEdt.setText("");
@@ -130,7 +133,7 @@ public class RegisterPage extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<List<String>> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "An error has occured", Toast.LENGTH_LONG).show();
 
 //                responseTV.setText("Error found is : " + t.getMessage());

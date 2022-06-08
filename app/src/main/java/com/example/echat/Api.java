@@ -15,4 +15,10 @@ public interface Api {
 
     @POST("users")
     Call<User> createUser(@Body User user);
+
+    @POST("{UserName}")
+    Call<Contact> createContact(@Body Contact contact);
+
+    @POST("{UserName}/{id}/messages")
+    Call<Message> createMessage(@Body Message message);
 }

@@ -10,10 +10,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,20 +39,21 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        getUsers();
+        List<User> users = getUsers();
 
     }
 
-    private void getUsers() {
+    private List<User> getUsers() {
+        List<User> users= new ArrayList<>();
         Call<List<User>> call = RetrofitClient.getInstance().getMyApi().getUsers();
         call.enqueue(new Callback<List<User>>() {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 List<User> myUserList = response.body();
-                String[] users = new String[myUserList.size()];
+                //users.set(0, new User[myUserList.size()]);
 
                 for (int i = 0; i < myUserList.size(); i++) {
-                    users[i] = myUserList.get(i).getName();
+                    users.add(myUserList.get(i).getUser());
                 }
 
                 //superListView.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, users));
@@ -62,17 +65,19 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+        return users;
     }
+}
 
     public boolean validUser(){
-return true;
+        return true;
 
     }
 
     public void loginUser(View view){
         if(!validUser()){
             Snackbar mySnackbar = Snackbar.make(view, "Username or password is incorrect", BaseTransientBottomBar.LENGTH_LONG);
-           mySnackbar.show();
+            mySnackbar.show();
             return;
         }
         else {
@@ -80,4 +85,4 @@ return true;
             startActivity(i);
         }
     }
-    }
+}

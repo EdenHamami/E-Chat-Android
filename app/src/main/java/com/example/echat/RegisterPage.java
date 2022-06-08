@@ -8,8 +8,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
 
 public class RegisterPage extends AppCompatActivity {
     private TextView here;
@@ -35,72 +45,110 @@ public class RegisterPage extends AppCompatActivity {
                 Intent photoIntent=new Intent(Intent.ACTION_PICK);
                 photoIntent.setType("image/*");
                 startActivityForResult(photoIntent,1);
-                
+
             }
         });
     }
 
-    public boolean validateUserName(){
-        if(userName.getText().toString().length()<6){
+    public boolean validateUserName() {
+        if (userName.getText().toString().length() < 6) {
             userName.setError("UserName must contain 6 letters");
             return false;
-        }
-        else{
+        } else {
             userName.setError(null);
             return true;
         }
 
     }
-    public boolean validateDisplayName(){
-        if(displayName.getText().toString().length()<6){
+
+    public boolean validateDisplayName() {
+        if (displayName.getText().toString().length() < 6) {
             displayName.setError("UserName must contain 6 letters");
             return false;
-        }
-        else{
+        } else {
             displayName.setError(null);
             return true;
         }
 
     }
-    public boolean validatePassword(){
-        if(password.getText().toString().length()<6){
+
+    public boolean validatePassword() {
+        if (password.getText().toString().length() < 6) {
             password.setError("Password Must Be At Least 6 Characters");
             return false;
-        }
-        else if(!Pattern.compile("[0-9]").matcher(password.getText().toString()).find()){
+        } else if (!Pattern.compile("[0-9]").matcher(password.getText().toString()).find()) {
             password.setError("Your Password must contain numbers");
             return false;
-        }
-        else if(!Pattern.compile("[A-Z]").matcher(password.getText().toString()).find()&&
-                !Pattern.compile("[a-z]").matcher(password.getText().toString()).find()){
+        } else if (!Pattern.compile("[A-Z]").matcher(password.getText().toString()).find() &&
+                !Pattern.compile("[a-z]").matcher(password.getText().toString()).find()) {
             password.setError("Your Password must contain letters");
             return false;
-        }
-
-        else{
+        } else {
             password.setError(null);
             return true;
         }
 
     }
-    public boolean validateRepeatPassword(){
-        if(!repeatPassword.getText().toString().equals(password.getText().toString())) {
+
+    public boolean validateRepeatPassword() {
+        if (!repeatPassword.getText().toString().equals(password.getText().toString())) {
             repeatPassword.setError("Passwords are not the same");
             return false;
-        }
-        else{
+        } else {
             repeatPassword.setError(null);
             return true;
         }
 
     }
-    public void registerUser(View view){
-        if(!validateUserName()||!validateDisplayName()||!validatePassword()||!validateRepeatPassword()){
+
+    public void registerUser(View view) {
+        if (!validateUserName() || !validateDisplayName() || !validatePassword() || !validateRepeatPassword()) {
             return;
-        }
-        else {
-            Intent i =new Intent(this,chatPage.class);
+        } else {
+            List<Contact> myContacts = new ArrayList<Contact>();
+            List<String> user = new ArrayList<>();
+            user.add(userName.getText().toString());
+            user.add(displayName.getText().toString());
+            user.add(password.getText().toString());
+
+            createUser(user);
+            Intent i = new Intent(this, chatPage.class);
             startActivity(i);
         }
+    }
+
+    private void createUser(@Body List<String> user) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Api.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        Api retrofitAPI = retrofit.create(Api.class);
+
+        Call<List<String>> call = retrofitAPI.createUser(user);
+
+        call.enqueue(new Callback<List<String>>() {
+            @Override
+            public void onResponse(Call<List<String>> call, Response<List<String>> response) {
+                Toast.makeText(RegisterPage.this, "Data added to API", Toast.LENGTH_SHORT).show();
+
+//                jobEdt.setText("");
+//                nameEdt.setText("");
+//
+//
+//                User responseFromAPI = response.body();
+//
+//                String responseString = "Response Code : " + response.code() + "\nName : " + responseFromAPI.getName() + "\n" + "Job : " + responseFromAPI.getJob();
+//
+//
+//                responseTV.setText(responseString);
+            }
+
+            @Override
+            public void onFailure(Call<List<String>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "An error has occured", Toast.LENGTH_LONG).show();
+
+//                responseTV.setText("Error found is : " + t.getMessage());
+            }
+        });
     }
 }

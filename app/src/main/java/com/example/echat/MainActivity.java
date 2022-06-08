@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -30,21 +31,22 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        User[] users = getUsers();
+        List<User> users = getUsers();
 
     }
 
-    private User[] getUsers() {
-        final User[][] users = new User[1][1];
+    private List<User> getUsers() {
+        List<User> users= new ArrayList<>();
+        //final User[][] users = new User[1][1];
         Call<List<User>> call = RetrofitClient.getInstance().getMyApi().getUsers();
         call.enqueue(new Callback<List<User>>() {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 List<User> myUserList = response.body();
-                users[0] = new User[myUserList.size()];
+                //users.set(0, new User[myUserList.size()]);
 
                 for (int i = 0; i < myUserList.size(); i++) {
-                    users[0][i] = myUserList.get(i).getUser();
+                    users.add(myUserList.get(i).getUser());
                 }
 
                 //superListView.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, users));
@@ -56,6 +58,6 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
-        return users[0];
+        return users;
     }
 }

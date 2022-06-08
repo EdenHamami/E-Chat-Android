@@ -26,7 +26,7 @@ public class User {
         this.userName = userName;
         this.name = name;
         this.password = password;
-        this.picture = picture;
+        //this.picture = picture;
         this.myContacts = myContacts;
     }
 

@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public boolean validUser(){
-return false;
+return true;
 
     }
 

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -13,7 +14,7 @@ import java.util.regex.Pattern;
 public class RegisterPage extends AppCompatActivity {
     private TextView here;
     private EditText userName,displayName,password,repeatPassword;
-
+    private Button uploadPhoto;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,9 +24,19 @@ public class RegisterPage extends AppCompatActivity {
         displayName=findViewById(R.id.DisplayName);
         password=findViewById(R.id.Password);
         repeatPassword=findViewById(R.id.RepeatPassword);
+        uploadPhoto=findViewById(R.id.uploadPhoto);
         here.setOnClickListener(v->{
             Intent i =new Intent(this,MainActivity.class);
             startActivity(i);
+        });
+        uploadPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent photoIntent=new Intent(Intent.ACTION_PICK);
+                photoIntent.setType("image/*");
+                startActivityForResult(photoIntent,1);
+                
+            }
         });
     }
 

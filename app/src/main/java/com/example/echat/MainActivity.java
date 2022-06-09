@@ -1,8 +1,5 @@
 package com.example.echat;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,12 +7,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -67,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
         });
         return users;
     }
-}
 
     public boolean validUser(){
         return true;
@@ -81,7 +78,8 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         else {
-            Intent i =new Intent(this,chatPage.class);
+            Intent i =new Intent(this,ChatList.class);
+//            i.putExtra("Username",userName.getText().toString());
             startActivity(i);
         }
     }

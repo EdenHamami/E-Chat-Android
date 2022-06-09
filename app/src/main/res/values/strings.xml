@@ -15,4 +15,8 @@
     <string name="send">send</string>
     <string name="enter_your_message_here">Enter your message here</string>
     <string name="upload_photo">Upload Photo</string>
+    <string name="contact_name">Contact Name</string>
+    <string name="defult_time">00:00</string>
+    <string name="addBtn">add</string>
+    <string name="saveBtn">save</string>
 </resources>

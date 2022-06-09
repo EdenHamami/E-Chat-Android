@@ -30,6 +30,10 @@ public class User {
         this.myContacts = myContacts;
     }
 
+    public User getUser() {
+        return this;
+    }
+
     public String getName() {
         return name;
     }

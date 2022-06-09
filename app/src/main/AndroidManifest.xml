@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.echat">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -14,6 +15,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Echat"
         tools:targetApi="31">
+        <activity
+            android:name=".AddContact"
+            android:exported="false" />
+        <activity
+            android:name=".ChatList"
+            android:exported="false" />
+        <activity
+            android:name=".listItem"
+            android:exported="false" />
         <activity
             android:name=".ContactsPage"
             android:exported="false" />

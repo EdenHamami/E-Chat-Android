@@ -105,12 +105,12 @@ public class RegisterPage extends AppCompatActivity {
         if (!validateUserName() || !validateDisplayName() || !validatePassword() || !validateRepeatPassword()) {
             return;
         } else {
-            List<Contact> myContacts = new ArrayList<Contact>();
-            //User user = new User(userName.getText().toString(), displayName.getText().toString(), password.getText().toString(), null, myContacts);
-            List<String> user = new ArrayList<>();
-            user.add(userName.getText().toString());
-            user.add(displayName.getText().toString());
-            user.add(password.getText().toString());
+            //List<Contact> myContacts = new ArrayList<Contact>();
+            CreateUserParam user = new CreateUserParam(userName.getText().toString(), displayName.getText().toString(), password.getText().toString(), null);
+//            List<String> user = new ArrayList<>();
+//            user.add(userName.getText().toString());
+//            user.add(displayName.getText().toString());
+//            user.add(password.getText().toString());
 
             createUser(user);
             Intent i = new Intent(this, chatPage.class);
@@ -118,18 +118,21 @@ public class RegisterPage extends AppCompatActivity {
         }
     }
 
-    private void createUser(List<String> user) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Api.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        Api retrofitAPI = retrofit.create(Api.class);
+    private void createUser(CreateUserParam user) {
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl(Api.BASE_URL)
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//        Api retrofitAPI = retrofit.create(Api.class);
 
-        Call<List<String>> call = retrofitAPI.createUser(user);
+        //Call<List<String>> call = retrofitAPI.createUser(user);
 
-        call.enqueue(new Callback<List<String>>() {
+        Call<CreateUserParam> call = RetrofitClient.getInstance().getMyApi().createUser(user);
+
+
+        call.enqueue(new Callback<CreateUserParam>() {
             @Override
-            public void onResponse(Call<List<String>> call, Response<List<String>> response) {
+            public void onResponse(Call<CreateUserParam> call, Response<CreateUserParam> response) {
                 Toast.makeText(RegisterPage.this, "Data added to API", Toast.LENGTH_SHORT).show();
 
 //                jobEdt.setText("");
@@ -145,7 +148,7 @@ public class RegisterPage extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<String>> call, Throwable t) {
+            public void onFailure(Call<CreateUserParam> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "An error has occured", Toast.LENGTH_LONG).show();
 
 //                responseTV.setText("Error found is : " + t.getMessage());

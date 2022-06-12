@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
 public class Contact {
 @PrimaryKey(autoGenerate=true)
     @SerializedName("id")
-    private int id;
+    private String id;
 
     @SerializedName("name")
     private String name;
@@ -62,10 +62,10 @@ public class Contact {
 //        //this.messages = messages;
 //    }
 
-    public Contact(int id, String name, String server, String last, String lastdate) {
+    public Contact(String id, String name, String server, String last, String lastdate) {
         this.id = id;
         this.name = name;
-        // this.server = server;
+        this.server = server;
         this.last = last;
         this.lastdate = lastdate;
         //this.messages = messages;

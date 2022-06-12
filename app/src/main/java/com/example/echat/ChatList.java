@@ -1,4 +1,9 @@
 package com.example.echat;
+//
+//import android.content.Intent;
+//import android.os.Bundle;
+//
+//import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,29 +18,47 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChatList extends AppCompatActivity {
+    private AppDB db;
+    private ContactDao contactDao;
+    private List<Contact> contacts;
+    private ContactsListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_list);
-        RecyclerView listContacts=findViewById(R.id.listContacts);
-        final ContactsListAdapter adapter=new ContactsListAdapter(this);
-        listContacts.setAdapter((adapter));
-        listContacts.setLayoutManager(new LinearLayoutManager(this));
+//        db = Room.databaseBuilder(getApplicationContext(), AppDB.class, "ContactsDB").
+//                allowMainThreadQueries().build();
+
+        doButton();
+        displayList();
+
+    }
+
+    private void displayList() {
+        db=AppDB.getInstance(ChatList.this);
+        contactDao = db.contactDao();
+        contacts = new ArrayList<>();
+        RecyclerView listContacts = findViewById(R.id.listContacts);
+        adapter=new ContactsListAdapter(ChatList.this);
+        listContacts.setAdapter(adapter);
+        listContacts.setLayoutManager(new LinearLayoutManager(ChatList.this));
+    }
+
+    public void doButton() {
         FloatingActionButton addBtn = findViewById(R.id.addBtn);
         addBtn.setOnClickListener(view -> {
-            Intent i = new Intent(this, AddContact.class);
+            Intent i = new Intent(ChatList.this, AddContact.class);
             startActivity(i);
         });
-        List<Contact> contacts=new ArrayList<>();
-        contacts.add((new Contact(0,"Eden","0"," ","now")));
-        contacts.add((new Contact(1,"Ela","0"," ","now")));
-        contacts.add((new Contact(2,"kim","0"," ","now")));
-        contacts.add((new Contact(3,"dd","0"," ","now")));
-        contacts.add((new Contact(3,"dd","0"," ","now")));
-        contacts.add((new Contact(4,"dd","0"," ","now")));
-        contacts.add((new Contact(5,"dd","0"," ","now")));
-        adapter.setContacts(contacts);
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        contacts.clear();
+        contacts.addAll(contactDao.index());
+        adapter.setContacts(contacts);
+        adapter.notifyDataSetChanged();
     }
 }

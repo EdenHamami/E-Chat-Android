@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             Intent i =new Intent(this,ChatList.class);
-//            i.putExtra("Username",userName.getText().toString());
+          //i.putExtra("Username",userName.getText().toString());
             startActivity(i);
         }
     }

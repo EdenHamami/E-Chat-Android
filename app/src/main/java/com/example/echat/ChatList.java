@@ -30,7 +30,7 @@ public class ChatList extends AppCompatActivity {
 //        db = Room.databaseBuilder(getApplicationContext(), AppDB.class, "ContactsDB").
 //                allowMainThreadQueries().build();
 
-        doButton();
+       doButton();
         displayList();
 
     }
@@ -51,6 +51,8 @@ public class ChatList extends AppCompatActivity {
             Intent i = new Intent(ChatList.this, AddContact.class);
             startActivity(i);
         });
+
+
     }
 
     @Override

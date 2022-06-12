@@ -21,8 +21,12 @@ public class AddContact extends AppCompatActivity {
         contactDao = db.contactDao();
         Button saveBtn = findViewById(R.id.saveBtn);
         saveBtn.setOnClickListener( view -> {
-            EditText etIten=findViewById(R.id.etItem);
-            String newContactName=etIten.getText().toString();
+            EditText contactsName=findViewById(R.id.contactName);
+            EditText contactsUserName=findViewById(R.id.contactsUsername);
+            EditText contactServer=findViewById(R.id.addServer);
+            String newContactName=contactsName.getText().toString();
+            String newContactUsername=contactsUserName.getText().toString();
+            String newContactSever=contactServer.getText().toString();
 //            List<Message> messages=new ArrayList<Message>() {};
             Contact contact=new Contact(0,newContactName,"","","");
             contactDao.insert(contact);

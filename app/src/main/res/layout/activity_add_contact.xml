@@ -34,17 +34,17 @@
         android:background="@color/contentB">
 
         <EditText
-            android:id="@+id/etItem"
+            android:id="@+id/contactName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/contact_name"/>
         <EditText
-            android:id="@+id/addServer"
+            android:id="@+id/contactsUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/contact_username"/>
         <EditText
-            android:id="@+id/add"
+            android:id="@+id/addServer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/contacts_server"/>

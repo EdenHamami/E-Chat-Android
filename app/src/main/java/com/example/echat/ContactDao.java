@@ -13,8 +13,7 @@ import java.util.List;
 public interface ContactDao {
 
     @Query("SELECT * FROM contact")
-    List<Contact
-            > index();
+    List<Contact> index();
 
     @Query("SELECT * FROM contact WHERE id = :id")
     Contact get(int id);

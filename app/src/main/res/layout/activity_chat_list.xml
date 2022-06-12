@@ -6,12 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".ChatList">
 
-    <ListView
-        android:id="@+id/lvContacts"
-        android:layout_width="wrap_content"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:ignore="MissingConstraints"
-        tools:listitem="@layout/activity_list_item"/>
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listContacts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/login1">
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"

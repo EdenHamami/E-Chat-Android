@@ -24,7 +24,7 @@ public class AddContact extends AppCompatActivity {
             String newContactName=etIten.getText().toString();
 //            List<Message> messages=new ArrayList<Message>() {};
             Contact contact=new Contact(0,newContactName,"","","");
-            contactDao.insert(contact);
+        contactDao.insert(contact);
             finish();
         });
     }

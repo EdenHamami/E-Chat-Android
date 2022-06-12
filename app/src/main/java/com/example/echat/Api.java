@@ -6,10 +6,11 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface Api {
 
-    String BASE_URL = "https://localhost:7213/api/contacts/";
+    String BASE_URL = "http://10.0.2.2:7213/api/contacts/";
     @GET("users")
     Call<List<User>> getUsers();
 
@@ -17,8 +18,8 @@ public interface Api {
     Call<List<String>> createUser(@Body List<String> user);
 
     @POST("{UserName}")
-    Call<Contact> createContact(@Body Contact contact);
+    Call<Contact> createContact(@Path("UserName") String UserName, @Body Contact contact);
 
     @POST("{UserName}/{id}/messages")
-    Call<Message> createMessage(@Body Message message);
+    Call<Message> createMessage(@Path("UserName") String UserName, @Path("id") String id, @Body Message message);
 }

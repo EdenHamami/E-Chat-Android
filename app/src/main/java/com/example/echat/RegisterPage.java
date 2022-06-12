@@ -106,6 +106,7 @@ public class RegisterPage extends AppCompatActivity {
             return;
         } else {
             List<Contact> myContacts = new ArrayList<Contact>();
+            //User user = new User(userName.getText().toString(), displayName.getText().toString(), password.getText().toString(), null, myContacts);
             List<String> user = new ArrayList<>();
             user.add(userName.getText().toString());
             user.add(displayName.getText().toString());
@@ -117,7 +118,7 @@ public class RegisterPage extends AppCompatActivity {
         }
     }
 
-    private void createUser(@Body List<String> user) {
+    private void createUser(List<String> user) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Api.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())

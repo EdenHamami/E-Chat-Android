@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "825042209186",
+    "project_id": "echat-71211",
+    "storage_bucket": "echat-71211.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:825042209186:android:ef1ba00479fa9676880afb",
+        "android_client_info": {
+          "package_name": "com.example.echat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "825042209186-v2tpnmiup9ef0s906mckrj06fs7ipjuh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnUhjmGulNiMRDKbo8HfdyPGESiNI4tFg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "825042209186-v2tpnmiup9ef0s906mckrj06fs7ipjuh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

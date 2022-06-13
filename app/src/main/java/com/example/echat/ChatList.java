@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +52,11 @@ public class ChatList extends AppCompatActivity {
 
         doButton();
         displayList();
+
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(ChatList.this, instanceIdResult -> {
+            String newToken = instanceIdResult.getToken();
+        });
+
 
     }
 
@@ -140,14 +147,7 @@ public class ChatList extends AppCompatActivity {
         });
         return contacts;
     }
-//    protected void onDestroy() {
-//        List<Contact> contacts = new ArrayList<>();
-//        contacts.addAll(contactDao.index());
-//        for(int i = 0; i < contacts.size(); i++) {
-//            contactDao.delete(contacts.get(i).getContact());
-//        }
-//
-//        super.onDestroy();
-//    }
+
+
 
 }

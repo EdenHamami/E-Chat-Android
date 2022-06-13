@@ -83,8 +83,9 @@ public class ChatList extends AppCompatActivity {
             @Override
             public void onClick(View view, int position) {
                 Intent intent=new Intent(getApplicationContext(),chatPage.class);
-                intent.putExtra("Username",contacts.get(position).getId());
-                intent.putExtra("Name",contacts.get(position).getName());
+                intent.putExtra("Username",userName);
+                intent.putExtra("ContactUsername",contacts.get(position).getId());
+                intent.putExtra("ContactName",contacts.get(position).getName());
                 startActivity(intent);
             }
         };

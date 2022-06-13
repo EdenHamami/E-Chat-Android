@@ -23,6 +23,9 @@ public interface Api {
     @POST("{UserName}")
     Call<CreateContactParam> createContact(@Path("UserName") String UserName, @Body CreateContactParam contact);
 
+    @GET("{UserName}/{id}/messages")
+    Call<List<GetMessagesParam>> getMessages(@Path("UserName") String UserName, @Path("id") String id);
+
     @POST("{UserName}/{id}/messages")
-    Call<Message> createMessage(@Path("UserName") String UserName, @Path("id") String id, @Body Message message);
+    Call<CreateMessageParam> createMessage(@Path("UserName") String UserName, @Path("id") String id, @Body CreateMessageParam message);
 }

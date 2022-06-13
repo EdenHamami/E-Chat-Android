@@ -80,18 +80,16 @@
         tools:ignore="MissingConstraints">
 
         <EditText
-            android:layout_width="195dp"
-            android:layout_height="53dp"
-            android:layout_weight="5"
+            android:layout_width="285dp"
+            android:layout_height="match_parent"
             android:background="@color/white"
             android:hint="@string/enter_your_message_here"
             android:padding="5sp" />
 
         <Button
             android:id="@+id/button"
-            android:layout_width="72dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="@string/send" />
     </LinearLayout>
 

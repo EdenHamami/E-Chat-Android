@@ -1,11 +1,16 @@
 package com.example.echat;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+@Entity
 public class Message {
 
+    @PrimaryKey(autoGenerate = true)
     @SerializedName("id")
     private int id;
 
@@ -15,14 +20,43 @@ public class Message {
     @SerializedName("created")
     private String created;
 
-    @SerializedName("sent")
-    private Boolean sent;
+    @SerializedName("to")
+    private String to;
 
-    public Message(int id, String content, String created, Boolean sent) {
-        this.id = id;
+    @SerializedName("from")
+    private String from;
+
+    public Message(String content, String created, String to, String from) {
         this.content = content;
         this.created = created;
-        this.sent = sent;
+        this.to = to;
+        this.from = from;
 
     }
+
+    public int getId() {
+        return id;
+    }
+    public String getContent() {
+        return content;
+    }
+    public String getCreated() {
+        return created;
+    }
+    public String getTo() {
+        return to;
+    }
+    public String getFrom() {
+        return from;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+
+
+
+
+
 }

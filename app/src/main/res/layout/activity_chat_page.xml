@@ -13,7 +13,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="128dp"
-        android:background="@color/btnColor"
+        android:background="@color/blackTransparency"
         android:orientation="horizontal"
         android:outlineAmbientShadowColor="@color/black"
         android:padding="20dp"
@@ -23,7 +23,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.934"
-        tools:ignore="MissingConstraints">
+        tools:ignore="MissingConstraints"
+        >
 
         <androidx.cardview.widget.CardView
             android:layout_width="92dp"
@@ -36,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:scaleType="centerCrop"
-                app:srcCompat="@drawable/ela" />
+                app:srcCompat="@drawable/img" />
         </androidx.cardview.widget.CardView>
 
         <TextView
@@ -63,9 +64,6 @@
         android:padding="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.934"
         tools:ignore="MissingConstraints">
 
@@ -74,8 +72,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="101dp"
-        android:background="@color/btnColor"
+        android:layout_height="wrap_content"
+        android:background="@color/blackTransparency"
         android:orientation="horizontal"
         android:outlineAmbientShadowColor="@color/black"
         android:padding="20dp"

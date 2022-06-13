@@ -10,8 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class ContactsListAdapter extends RecyclerView.Adapter<ContactsListAdapter.ContactViewHolder> {
+    private RecyclerViewClickListener listener;
 
-    class ContactViewHolder extends RecyclerView.ViewHolder {
+    class ContactViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private final TextView contactName;
         private final TextView lastMassage;
         private final TextView time;
@@ -23,13 +24,20 @@ public class ContactsListAdapter extends RecyclerView.Adapter<ContactsListAdapte
             lastMassage=itemView.findViewById(R.id.lastMessage);
             time=itemView.findViewById(R.id.time);
             image=itemView.findViewById(R.id.ContactImage);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+listener.onClick(v,getAdapterPosition());
         }
     }
     private final LayoutInflater mInflater;
     private List<Contact> contacts;
 
-    public ContactsListAdapter(Context context){
+    public ContactsListAdapter(Context context,RecyclerViewClickListener listener){
         mInflater=LayoutInflater.from(context);
+        this.listener=listener;
     }
     @Override
     public ContactViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -56,6 +64,9 @@ public void setContacts(List<Contact> s){
             return contacts.size();
         }
         else return 0;
+    }
+    public interface RecyclerViewClickListener{
+        void onClick(View view,int position);
     }
 }
 

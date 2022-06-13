@@ -55,8 +55,7 @@ public class Message {
     }
 
 
-
-
-
-
+    public Message getMessage() {
+        return this;
+    }
 }

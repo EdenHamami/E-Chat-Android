@@ -1,12 +1,18 @@
 package com.example.echat;
 
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -64,6 +70,35 @@ public class chatPage extends AppCompatActivity {
         contactName.setText(contactNameString);
 
         messages = getMessages();
+
+        db=MessageDB.getInstance(chatPage.this);
+
+        messageDao = db.messageDao();
+
+        FloatingActionButton addBtn = findViewById(R.id.addBtn);
+
+        addBtn.setOnClickListener( view -> {
+
+            EditText content = findViewById(R.id.writeMessage);
+
+            String contentString=content.getText().toString();
+            Date currentTime = Calendar.getInstance().getTime();
+
+
+            Message newMessage=new Message(contentString, currentTime.toString(), contactUserName,userName);
+            messageDao.insert(newMessage);
+
+            CreateMessageParam messageParam = new CreateMessageParam(contentString);
+
+            createMessage(messageParam);
+
+            TransferParam transferParam = new TransferParam(contactUserName, userName, contentString);
+            NewMessage(transferParam);
+
+            finish();
+        });
+
+
     }
 
     private List<Message> getMessages() {
@@ -87,7 +122,7 @@ public class chatPage extends AppCompatActivity {
                     }
                 }
 //                for(int i = 0; i < messages.size(); i++) {
-//                    MessageDao.insert(messages.get(i).getContact());
+//                    MessageDao.insert(messages.get(i).getMessage());
 //                }
 //                adapter.setContacts(messages);
 //                adapter.notifyDataSetChanged();
@@ -102,5 +137,33 @@ public class chatPage extends AppCompatActivity {
 
         });
         return messages;
+    }
+
+    private void createMessage(CreateMessageParam message) {
+        Call<CreateMessageParam> call = RetrofitClient.getInstance().getMyApi().createMessage(userName, contactUserName, message);
+        call.enqueue(new Callback<CreateMessageParam>() {
+            @Override
+            public void onResponse(Call<CreateMessageParam> call, Response<CreateMessageParam> response) {
+                Toast.makeText(chatPage.this, "Data added to API", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onFailure(Call<CreateMessageParam> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "An error has occured", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void NewMessage(TransferParam newMessage) {
+        Call<TransferParam> call = RetrofitClient.getInstance().getMyApi().NewMessage(newMessage);
+        call.enqueue(new Callback<TransferParam>() {
+            @Override
+            public void onResponse(Call<TransferParam> call, Response<TransferParam> response) {
+                Toast.makeText(chatPage.this, "Data added to API", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onFailure(Call<TransferParam> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "An error has occured", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }

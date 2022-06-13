@@ -18,10 +18,10 @@ public interface Api {
     Call<CreateUserParam> createUser(@Body CreateUserParam user);
 
     @GET("{UserName}")
-    Call<List<Contact>> getContacts();
+    Call<List<Contact>> getContacts(@Path("UserName") String UserName);
 
     @POST("{UserName}")
-    Call<Contact> createContact(@Path("UserName") String UserName, @Body Contact contact);
+    Call<CreateContactParam> createContact(@Path("UserName") String UserName, @Body CreateContactParam contact);
 
     @POST("{UserName}/{id}/messages")
     Call<Message> createMessage(@Path("UserName") String UserName, @Path("id") String id, @Body Message message);

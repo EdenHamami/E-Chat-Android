@@ -62,13 +62,15 @@ public class RegisterPage extends AppCompatActivity {
     }
 
     public boolean validateDisplayName() {
-        if (displayName.getText().toString().length() < 6) {
-            displayName.setError("UserName must contain 6 letters");
-            return false;
-        } else {
-            displayName.setError(null);
-            return true;
-        }
+//        if (displayName.getText().toString().length() < 6) {
+//            displayName.setError("UserName must contain 6 letters");
+//            return false;
+//        } else {
+//            displayName.setError(null);
+//            return true;
+//        }
+
+        return true;
 
     }
 
@@ -113,45 +115,22 @@ public class RegisterPage extends AppCompatActivity {
 //            user.add(password.getText().toString());
 
             createUser(user);
-            Intent i = new Intent(this, chatPage.class);
+            Intent i = new Intent(this, ChatList.class);
+            i.putExtra("Username",userName.getText().toString());
             startActivity(i);
         }
     }
 
     private void createUser(CreateUserParam user) {
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl(Api.BASE_URL)
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build();
-//        Api retrofitAPI = retrofit.create(Api.class);
-
-        //Call<List<String>> call = retrofitAPI.createUser(user);
-
         Call<CreateUserParam> call = RetrofitClient.getInstance().getMyApi().createUser(user);
-
-
         call.enqueue(new Callback<CreateUserParam>() {
             @Override
             public void onResponse(Call<CreateUserParam> call, Response<CreateUserParam> response) {
                 Toast.makeText(RegisterPage.this, "Data added to API", Toast.LENGTH_SHORT).show();
-
-//                jobEdt.setText("");
-//                nameEdt.setText("");
-//
-//
-//                User responseFromAPI = response.body();
-//
-//                String responseString = "Response Code : " + response.code() + "\nName : " + responseFromAPI.getName() + "\n" + "Job : " + responseFromAPI.getJob();
-//
-//
-//                responseTV.setText(responseString);
             }
-
             @Override
             public void onFailure(Call<CreateUserParam> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "An error has occured", Toast.LENGTH_LONG).show();
-
-//                responseTV.setText("Error found is : " + t.getMessage());
             }
         });
     }

@@ -23,13 +23,14 @@ public class MainActivity extends AppCompatActivity {
     private EditText userName;
     private EditText password;
     private TextView create_account;
+    List<User> users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
         userName=findViewById(R.id.UserName);
         password=findViewById(R.id.Password);
-        setContentView(R.layout.activity_main);
         create_account=findViewById(R.id.create_account);
         create_account.setOnClickListener(v->{
             Intent i =new Intent(this,RegisterPage.class);
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        List<User> users = getUsers();
+        users = getUsers();
 
     }
 
@@ -67,19 +68,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public boolean validUser(){
-        return true;
+        for(User user : users) {
+            String username = userName.getText().toString();
+            String password1 = password.getText().toString();
+            if((user.getUserName().equals(username)) && (user.getPassword().equals(password1))) {
+                return true;
+            }
+        }
+        return false;
 
     }
 
     public void loginUser(View view){
         if(!validUser()){
-            Snackbar mySnackbar = Snackbar.make(view, "Username or password is incorrect", BaseTransientBottomBar.LENGTH_LONG);
+            Snackbar mySnackbar = Snackbar.make(view, "The username or password is incorrect", BaseTransientBottomBar.LENGTH_LONG);
             mySnackbar.show();
             return;
         }
         else {
             Intent i =new Intent(this,ChatList.class);
-//            i.putExtra("Username",userName.getText().toString());
+            i.putExtra("Username",userName.getText().toString());
             startActivity(i);
         }
     }

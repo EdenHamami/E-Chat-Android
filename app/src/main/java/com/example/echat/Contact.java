@@ -1,5 +1,6 @@
 package com.example.echat;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -7,7 +8,9 @@ import com.google.gson.annotations.SerializedName;
 
 @Entity
 public class Contact {
-@PrimaryKey(autoGenerate=true)
+@PrimaryKey(autoGenerate = true)
+    private int contactId;
+
     @SerializedName("id")
     private String id;
 
@@ -20,7 +23,14 @@ public class Contact {
     @SerializedName("last")
     private String last;
 
-    public void setId(int id) {
+    @SerializedName("lastdate")
+    private String lastdate;
+
+    public void setContactId(int contactId) {
+        this.contactId = contactId;
+    }
+
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -44,8 +54,7 @@ public class Contact {
 //        this.messages = messages;
 //    }
 
-    @SerializedName("lastdate")
-    private String lastdate;
+
 
     //public string Picture { get; set; }
 
@@ -71,7 +80,13 @@ public class Contact {
         //this.messages = messages;
     }
 
-    public int getId() {
+    public Contact getContact() { return this; }
+
+    public int getContactId() {
+        return contactId;
+    }
+
+    public String getId() {
         return id;
     }
 

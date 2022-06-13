@@ -37,4 +37,11 @@ public class User {
     public String getName() {
         return name;
     }
+    public String getUserName() {
+        return userName;
+    }
+    public String getPassword() {
+        return password;
+    }
+
 }

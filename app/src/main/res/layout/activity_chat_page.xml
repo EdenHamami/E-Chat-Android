@@ -48,7 +48,6 @@
             android:layout_weight="4"
             android:ems="10"
             android:minHeight="48dp"
-            android:text="Ela HALO tziyonit"
             android:textAlignment="center"
             android:textSize="25sp"
             android:textStyle="bold" />

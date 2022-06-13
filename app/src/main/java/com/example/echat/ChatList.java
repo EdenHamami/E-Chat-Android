@@ -7,6 +7,7 @@ package com.example.echat;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +29,7 @@ public class ChatList extends AppCompatActivity {
     private List<Contact> contacts;
     private ContactsListAdapter adapter;
     private String userName;
+    private ContactsListAdapter.RecyclerViewClickListener listener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,13 +69,25 @@ public class ChatList extends AppCompatActivity {
         for(int i = 0; i < contacts.size(); i++) {
             contactDao.insert(contacts.get(i).getContact());
         }
-
+        setOnClickListener();
         RecyclerView listContacts = findViewById(R.id.listContacts);
-        adapter=new ContactsListAdapter(ChatList.this);
+        adapter=new ContactsListAdapter(ChatList.this,listener);
         adapter.setContacts(contacts);
         adapter.notifyDataSetChanged();
         listContacts.setAdapter(adapter);
         listContacts.setLayoutManager(new LinearLayoutManager(ChatList.this));
+    }
+
+    private void setOnClickListener() {
+            listener=new ContactsListAdapter.RecyclerViewClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Intent intent=new Intent(getApplicationContext(),chatPage.class);
+                intent.putExtra("Username",contacts.get(position).getId());
+                intent.putExtra("Name",contacts.get(position).getName());
+                startActivity(intent);
+            }
+        };
     }
 
     public void doButton() {
@@ -83,8 +97,6 @@ public class ChatList extends AppCompatActivity {
             i.putExtra("Username",userName);
             startActivity(i);
         });
-
-
     }
 
     @Override

@@ -54,6 +54,9 @@ public class AddContact extends AppCompatActivity {
 
             createContact(contactParam);
 
+            InvitationsParam newConversation = new InvitationsParam(newContactUsername, userName, newContactSever);
+            NewConversation(newConversation);
+
             finish();
         });
     }
@@ -67,6 +70,19 @@ public class AddContact extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<CreateContactParam> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "An error has occured", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+    private void NewConversation(InvitationsParam newConversation) {
+        Call<InvitationsParam> call = RetrofitClient.getInstance().getMyApi().NewConversation(newConversation);
+        call.enqueue(new Callback<InvitationsParam>() {
+            @Override
+            public void onResponse(Call<InvitationsParam> call, Response<InvitationsParam> response) {
+                Toast.makeText(AddContact.this, "Data added to API", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onFailure(Call<InvitationsParam> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "An error has occured", Toast.LENGTH_LONG).show();
             }
         });

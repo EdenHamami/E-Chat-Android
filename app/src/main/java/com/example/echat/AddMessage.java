@@ -67,6 +67,9 @@ public class AddMessage extends AppCompatActivity {
 
             createMessage(messageParam);
 
+            TransferParam transferParam = new TransferParam(contactUserName, userName, contentString);
+            NewMessage(transferParam);
+
             finish();
         });
     }
@@ -80,6 +83,20 @@ public class AddMessage extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<CreateMessageParam> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "An error has occured", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void NewMessage(TransferParam newMessage) {
+        Call<TransferParam> call = RetrofitClient.getInstance().getMyApi().NewMessage(newMessage);
+        call.enqueue(new Callback<TransferParam>() {
+            @Override
+            public void onResponse(Call<TransferParam> call, Response<TransferParam> response) {
+                Toast.makeText(AddMessage.this, "Data added to API", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onFailure(Call<TransferParam> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "An error has occured", Toast.LENGTH_LONG).show();
             }
         });

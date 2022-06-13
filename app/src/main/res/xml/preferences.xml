@@ -6,7 +6,7 @@
     <PreferenceCategory android:title="General">
 
         <EditTextPreference
-            android:defaultValue="http://10.0.2.2:7213/api"
+            android:defaultValue="10.0.2.2:7213"
             android:dialogTitle="Enter The Default Server Name"
             android:key="text"
             android:title="Edit Default Server"

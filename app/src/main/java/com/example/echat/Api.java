@@ -28,4 +28,10 @@ public interface Api {
 
     @POST("contacts/{UserName}/{id}/messages")
     Call<CreateMessageParam> createMessage(@Path("UserName") String UserName, @Path("id") String id, @Body CreateMessageParam message);
+
+    @POST("invitations")
+    Call<InvitationsParam> NewConversation(@Body InvitationsParam newConversation);
+
+    @POST("transfer")
+    Call<TransferParam> NewMessage(@Body TransferParam newMessage);
 }

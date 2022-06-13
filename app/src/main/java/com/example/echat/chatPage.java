@@ -24,16 +24,36 @@ import androidx.appcompat.app.AppCompatActivity;
 //}
 public class chatPage extends AppCompatActivity {
     private TextView contactName;
+    private String contactUserName;
+    private String contactNameString;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        contactName=findViewById(R.id.contactName);
         setContentView(R.layout.activity_chat_page);
-        String userName="UserName not set";
-        Bundle extras=getIntent().getExtras();
-        if(extras!=null){
-            userName=extras.getString("username");
+        contactName=findViewById(R.id.contactName);
+
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                contactUserName= null;
+            } else {
+                contactUserName= extras.getString("Username");
+            }
+        } else {
+            contactUserName= (String) savedInstanceState.getSerializable("Username");
         }
-        contactName.setText(userName);
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                contactNameString= null;
+            } else {
+                contactNameString= extras.getString("Name");
+            }
+        } else {
+            contactNameString= (String) savedInstanceState.getSerializable("Name");
+        }
+        contactName.setText(contactNameString);
     }
 }

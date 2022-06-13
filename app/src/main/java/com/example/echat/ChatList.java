@@ -83,7 +83,8 @@ public class ChatList extends AppCompatActivity {
             @Override
             public void onClick(View view, int position) {
                 Intent intent=new Intent(getApplicationContext(),chatPage.class);
-                intent.putExtra("username",contacts.get(position).getName());
+                intent.putExtra("Username",contacts.get(position).getId());
+                intent.putExtra("Name",contacts.get(position).getName());
                 startActivity(intent);
             }
         };
@@ -96,8 +97,6 @@ public class ChatList extends AppCompatActivity {
             i.putExtra("Username",userName);
             startActivity(i);
         });
-
-
     }
 
     @Override

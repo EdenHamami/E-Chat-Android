@@ -12,18 +12,18 @@ import java.util.List;
 @Dao
 public interface MessageDao {
 
-    @Query("SELECT * FROM contact")
-    List<Contact> index();
+    @Query("SELECT * FROM message")
+    List<Message> index();
 
-    @Query("SELECT * FROM contact WHERE id = :id")
-    Contact get(int id);
+    @Query("SELECT * FROM message WHERE id = :id")
+    Message get(int id);
 
     @Insert
-    void insert(Contact... contacts);
+    void insert(Message... messages);
 
     @Update
-    void update(Contact... contacts);
+    void update(Message... messages);
 
     @Delete
-    void delete(Contact... contacts);
+    void delete(Message... messages);
 }

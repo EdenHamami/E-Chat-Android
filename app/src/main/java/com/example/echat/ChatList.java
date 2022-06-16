@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +53,27 @@ public class ChatList extends AppCompatActivity {
         doButton();
         displayList();
 
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(ChatList.this, instanceIdResult -> {
+            String newToken = instanceIdResult.getToken();
+            PutTokenParam putTokenParam = new PutTokenParam(userName, newToken);
+            putToken(putTokenParam);
+        });
+
+
+    }
+
+    private void putToken(PutTokenParam newToken) {
+        Call<PutTokenParam> call = RetrofitClient.getInstance().getMyApi().PutToken(newToken);
+        call.enqueue(new Callback<PutTokenParam>() {
+            @Override
+            public void onResponse(Call<PutTokenParam> call, Response<PutTokenParam> response) {
+                Toast.makeText(ChatList.this, "Data added to API", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onFailure(Call<PutTokenParam> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "An error has occured", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void displayList() {
@@ -83,8 +106,9 @@ public class ChatList extends AppCompatActivity {
             @Override
             public void onClick(View view, int position) {
                 Intent intent=new Intent(getApplicationContext(),chatPage.class);
-                intent.putExtra("Username",contacts.get(position).getId());
-                intent.putExtra("Name",contacts.get(position).getName());
+                intent.putExtra("Username",userName);
+                intent.putExtra("ContactUsername",contacts.get(position).getId());
+                intent.putExtra("ContactName",contacts.get(position).getName());
                 startActivity(intent);
             }
         };
@@ -139,14 +163,7 @@ public class ChatList extends AppCompatActivity {
         });
         return contacts;
     }
-//    protected void onDestroy() {
-//        List<Contact> contacts = new ArrayList<>();
-//        contacts.addAll(contactDao.index());
-//        for(int i = 0; i < contacts.size(); i++) {
-//            contactDao.delete(contacts.get(i).getContact());
-//        }
-//
-//        super.onDestroy();
-//    }
+
+
 
 }

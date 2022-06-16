@@ -3,6 +3,7 @@ package com.example.echat;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
     private TextView create_account;
     List<User> users;
 
+    private Button settingsBtn;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,8 +41,19 @@ public class MainActivity extends AppCompatActivity {
             startActivity(i);
         });
 
-
         users = getUsers();
+
+        settingsBtn = findViewById(R.id.idBtnSettings);
+
+        // adding on click listener for our button.
+        settingsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // opening a new intent to open settings activity.
+                Intent i = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(i);
+            }
+        });
 
     }
 
@@ -75,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         }
-        return true;
+        return false;
 
     }
 

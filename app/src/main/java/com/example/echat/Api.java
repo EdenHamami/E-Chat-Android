@@ -10,19 +10,31 @@ import retrofit2.http.Path;
 
 public interface Api {
 
-    String BASE_URL = "http://10.0.2.2:7213/api/contacts/";
-    @GET("users")
+    String BASE_URL = "http://10.0.2.2:7213/api/";
+    @GET("contacts/users")
     Call<List<User>> getUsers();
 
-    @POST("users")
+    @POST("contacts/users")
     Call<CreateUserParam> createUser(@Body CreateUserParam user);
 
-    @GET("{UserName}")
+    @GET("contacts/{UserName}")
     Call<List<Contact>> getContacts(@Path("UserName") String UserName);
 
-    @POST("{UserName}")
+    @POST("contacts/{UserName}")
     Call<CreateContactParam> createContact(@Path("UserName") String UserName, @Body CreateContactParam contact);
 
-    @POST("{UserName}/{id}/messages")
-    Call<Message> createMessage(@Path("UserName") String UserName, @Path("id") String id, @Body Message message);
+    @GET("contacts/{UserName}/{id}/messages")
+    Call<List<GetMessagesParam>> getMessages(@Path("UserName") String UserName, @Path("id") String id);
+
+    @POST("contacts/{UserName}/{id}/messages")
+    Call<CreateMessageParam> createMessage(@Path("UserName") String UserName, @Path("id") String id, @Body CreateMessageParam message);
+
+    @POST("invitations")
+    Call<InvitationsParam> NewConversation(@Body InvitationsParam newConversation);
+
+    @POST("transfer")
+    Call<TransferParam> NewMessage(@Body TransferParam newMessage);
+
+    @POST("token")
+    Call<PutTokenParam> PutToken(@Body PutTokenParam newToken);
 }

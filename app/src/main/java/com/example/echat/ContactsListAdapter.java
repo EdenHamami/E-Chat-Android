@@ -51,8 +51,7 @@ listener.onClick(v,getAdapterPosition());
             final Contact current=contacts.get(position);
             holder.contactName.setText(current.getName());
             holder.lastMassage.setText(current.getLast());
-            holder.time.setText(current.getLastdate());
-        }
+            holder.time.setText(current.getLastdate());}
     }
 public void setContacts(List<Contact> s){
         contacts=s;

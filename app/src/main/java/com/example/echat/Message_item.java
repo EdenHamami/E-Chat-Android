@@ -9,6 +9,6 @@ public class Message_item extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_message_item);
+        setContentView(R.layout.item_text_out);
     }
 }

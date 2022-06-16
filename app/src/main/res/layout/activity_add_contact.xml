@@ -22,40 +22,42 @@
         </ImageView>
 
         <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="10dp"
-        android:padding="10dp"
-        android:background="@color/contentB">
-
-        <EditText
-            android:id="@+id/contactName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/contact_name"/>
-        <EditText
-            android:id="@+id/contactsUsername"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/contact_username"/>
-        <EditText
-            android:id="@+id/addServer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/contacts_server"/>
+            android:layout_height="230dp"
+            android:layout_margin="10dp"
+            android:background="@color/contentB"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="10dp">
 
-        <Button
-            android:id="@+id/saveBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/saveBtn">
+            <EditText
+                android:id="@+id/contactName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/contact_name" />
 
-        </Button>
-    </LinearLayout>
+            <EditText
+                android:id="@+id/contactsUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/contact_username" />
+
+            <EditText
+                android:id="@+id/addServer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/contacts_server" />
+
+            <Button
+                android:id="@+id/saveBtn"
+                android:layout_width="159dp"
+                android:layout_height="68dp"
+                android:text="@string/saveBtn">
+
+            </Button>
+        </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

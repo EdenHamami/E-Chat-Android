@@ -14,8 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Echat"
+        android:usesCleartextTraffic="true">
         tools:targetApi="31"
-        android:usesCleartextTraffic="true"
+
 
         <service
             android:name=".MyService"
@@ -27,35 +28,45 @@
         </service>
     <activity
         android:name=".Message_list"
-        android:exported="false" />
+        android:exported="false"
+        tools:ignore="WrongManifestParent" />
     <activity
         android:name=".Message_item"
-        android:exported="false" />
+        android:exported="false"
+        tools:ignore="WrongManifestParent" />
 
         <activity
             android:name=".SettingsActivity"
-            android:exported="false" />
+            android:exported="false"
+            tools:ignore="WrongManifestParent" />
         <activity
             android:name=".AddContact"
-            android:exported="false" />
+            android:exported="false"
+            tools:ignore="WrongManifestParent" />
         <activity
             android:name=".ChatList"
-            android:exported="false" />
+            android:exported="false"
+            tools:ignore="WrongManifestParent" />
         <activity
             android:name=".listItem"
-            android:exported="false" />
+            android:exported="false"
+            tools:ignore="WrongManifestParent" />
         <activity
             android:name=".ContactsPage"
-            android:exported="false" />
+            android:exported="false"
+            tools:ignore="WrongManifestParent" />
         <activity
             android:name=".chatPage"
-            android:exported="false" />
+            android:exported="false"
+            tools:ignore="WrongManifestParent" />
         <activity
             android:name=".RegisterPage"
-            android:exported="false" />
+            android:exported="false"
+            tools:ignore="WrongManifestParent" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            tools:ignore="WrongManifestParent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -63,5 +74,4 @@
             </intent-filter>
         </activity>
     </application>
-
-</manifest>
+    </manifest>

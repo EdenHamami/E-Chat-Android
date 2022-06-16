@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -131,6 +130,17 @@ public class ChatList extends AppCompatActivity {
         adapter.setContacts(contacts);
         adapter.notifyDataSetChanged();
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        contacts.clear();
+        contacts.addAll(contactDao.index());
+        adapter.setContacts(contacts);
+        adapter.notifyDataSetChanged();
+    }
+
+
 
     private List<Contact> getContacts() {
         List<Contact> contacts= new ArrayList<>();

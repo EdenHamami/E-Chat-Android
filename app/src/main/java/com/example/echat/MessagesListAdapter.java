@@ -4,69 +4,92 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.List;
+import java.util.Objects;
 
-public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapter.MessageViewHolder> {
-    private RecyclerViewClickListener listener;
+public class MessagesListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private final Context context;
+    List<Message> list;
+    public static final int MESSAGE_TYPE_IN = 1;
+    public static final int MESSAGE_TYPE_OUT = 2;
+    String username;
 
-    class MessageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        private final TextView contactName;
-        private final TextView lastMassage;
-        private final TextView time;
-        private final ImageView image;
+    public MessagesListAdapter(Context context, List<Message> list, String username) { // you can pass other parameters in constructor
+        this.context = context;
+        this.list = list;
+        this.username = username;
+    }
 
-        private MessageViewHolder(View itemView){
-            super((itemView));
-            contactName=itemView.findViewById(R.id.contactName);
-            lastMassage=itemView.findViewById(R.id.lastMessage);
-            time=itemView.findViewById(R.id.time);
-            image=itemView.findViewById(R.id.ContactImage);
-            itemView.setOnClickListener(this);
+    private class MessageInViewHolder extends RecyclerView.ViewHolder {
+
+        TextView messageTV, dateTV;
+
+        MessageInViewHolder(final View itemView) {
+            super(itemView);
+            messageTV = itemView.findViewById(R.id.message_text);
+            dateTV = itemView.findViewById(R.id.date_text);
         }
 
-        @Override
-        public void onClick(View v) {
-            listener.onClick(v,getAdapterPosition());
+        void bind(int position) {
+            Message message = list.get(position);
+            messageTV.setText(message.getContent());
+            dateTV.setText(message.getCreated());
         }
     }
-    private final LayoutInflater mInflater;
-    private List<Contact> contacts;
 
-    public MessagesListAdapter(Context context,RecyclerViewClickListener listener){
-        mInflater=LayoutInflater.from(context);
-        this.listener=listener;
-    }
-    @Override
-    public MessageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView=mInflater.inflate(R.layout.activity_message_item,parent,false);
-        return new MessageViewHolder(itemView);
-    }
+    private class MessageOutViewHolder extends RecyclerView.ViewHolder {
 
-    @Override
-    public void onBindViewHolder(MessageViewHolder holder, int position) {
-        if(contacts!=null){
-            final Contact current=contacts.get(position);
-            holder.contactName.setText(current.getName());
-            holder.lastMassage.setText(current.getLast());
-            holder.time.setText(current.getLastdate());
+        TextView messageTV, dateTV;
+
+        MessageOutViewHolder(final View itemView) {
+            super(itemView);
+            messageTV = itemView.findViewById(R.id.message_text);
+            dateTV = itemView.findViewById(R.id.date_text);
+        }
+
+        void bind(int position) {
+            Message message = list.get(position);
+            messageTV.setText(message.getContent());
+            dateTV.setText(message.getCreated());
         }
     }
-    public void setContacts(List<Contact> s){
-        contacts=s;
+    public void setMessages(List<Message> s){
+        list=s;
         notifyDataSetChanged();
     }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if (viewType == MESSAGE_TYPE_IN) {
+            return new MessageInViewHolder(LayoutInflater.from(context).inflate(R.layout.item_text_in, parent, false));
+        }
+        return new MessageOutViewHolder(LayoutInflater.from(context).inflate(R.layout.item_text_out, parent, false));
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        if (getItemViewType(position) == MESSAGE_TYPE_IN) {
+            ((MessageInViewHolder) holder).bind(position);
+        } else {
+            ((MessageOutViewHolder) holder).bind(position);
+        }
+    }
+
     @Override
     public int getItemCount() {
-        if(contacts!=null){
-            return contacts.size();
-        }
-        else return 0;
+        return list.size();
     }
-    public interface RecyclerViewClickListener{
-        void onClick(View view,int position);
+
+    @Override
+    public int getItemViewType(int position) {
+        if (Objects.equals(list.get(position).getFrom(), username)) {
+            return MESSAGE_TYPE_OUT;
+
+        }
+        return MESSAGE_TYPE_IN;
     }
 }
-

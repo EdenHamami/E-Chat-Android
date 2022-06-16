@@ -105,11 +105,10 @@
         </LinearLayout>
 
 
-
         <Button
             android:id="@+id/Register_btn"
             android:layout_width="196dp"
-            android:layout_height="wrap_content"
+            android:layout_height="68dp"
             android:layout_gravity="center"
             android:onClick="registerUser"
             android:text="@string/register" />

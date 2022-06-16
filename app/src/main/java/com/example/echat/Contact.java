@@ -1,6 +1,5 @@
 package com.example.echat;
 
-import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -49,6 +48,7 @@ public class Contact {
     public void setLastdate(String lastdate) {
         this.lastdate = lastdate;
     }
+
 
 //    public void setMessages(List<Message> messages) {
 //        this.messages = messages;

@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -35,6 +37,7 @@ public class RegisterPage extends AppCompatActivity {
         password=findViewById(R.id.Password);
         repeatPassword=findViewById(R.id.RepeatPassword);
         uploadPhoto=findViewById(R.id.uploadPhoto);
+
         here.setOnClickListener(v->{
             Intent i =new Intent(this,MainActivity.class);
             startActivity(i);
@@ -45,7 +48,6 @@ public class RegisterPage extends AppCompatActivity {
                 Intent photoIntent=new Intent(Intent.ACTION_PICK);
                 photoIntent.setType("image/*");
                 startActivityForResult(photoIntent,1);
-
             }
         });
     }

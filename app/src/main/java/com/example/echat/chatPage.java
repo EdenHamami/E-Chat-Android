@@ -92,7 +92,7 @@ public class chatPage extends AppCompatActivity {
 
             createMessage(messageParam);
 
-            TransferParam transferParam = new TransferParam(contactUserName, userName, contentString);
+            TransferParam transferParam = new TransferParam(userName, contactUserName, contentString);
             NewMessage(transferParam);
 
             finish();

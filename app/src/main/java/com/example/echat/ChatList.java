@@ -79,7 +79,7 @@ public class ChatList extends AppCompatActivity {
     }
 
     private void setOnClickListener() {
-            listener=new ContactsListAdapter.RecyclerViewClickListener() {
+        listener=new ContactsListAdapter.RecyclerViewClickListener() {
             @Override
             public void onClick(View view, int position) {
                 Intent intent=new Intent(getApplicationContext(),chatPage.class);

@@ -8,7 +8,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 
-@Database(entities ={Contact.class} ,version = 1, exportSchema = false)
+@Database(entities ={Contact.class} ,version = 3, exportSchema = false)
 public abstract class AppDB extends RoomDatabase {
     public abstract ContactDao contactDao();
     private static AppDB appDB;
@@ -18,7 +18,7 @@ public abstract class AppDB extends RoomDatabase {
             appDB= Room.databaseBuilder(context,
                             AppDB.class,
                             "ContactDB")
-                    .allowMainThreadQueries().build();
+                    .allowMainThreadQueries().fallbackToDestructiveMigration().build();
         }
         return appDB;
     }

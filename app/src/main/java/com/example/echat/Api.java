@@ -34,4 +34,7 @@ public interface Api {
 
     @POST("transfer")
     Call<TransferParam> NewMessage(@Body TransferParam newMessage);
+
+    @POST("token")
+    Call<PutTokenParam> PutToken(@Body PutTokenParam newToken);
 }

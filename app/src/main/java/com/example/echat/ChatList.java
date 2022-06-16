@@ -55,9 +55,25 @@ public class ChatList extends AppCompatActivity {
 
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(ChatList.this, instanceIdResult -> {
             String newToken = instanceIdResult.getToken();
+            PutTokenParam putTokenParam = new PutTokenParam(userName, newToken);
+            putToken(putTokenParam);
         });
 
 
+    }
+
+    private void putToken(PutTokenParam newToken) {
+        Call<PutTokenParam> call = RetrofitClient.getInstance().getMyApi().PutToken(newToken);
+        call.enqueue(new Callback<PutTokenParam>() {
+            @Override
+            public void onResponse(Call<PutTokenParam> call, Response<PutTokenParam> response) {
+                Toast.makeText(ChatList.this, "Data added to API", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onFailure(Call<PutTokenParam> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "An error has occured", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void displayList() {

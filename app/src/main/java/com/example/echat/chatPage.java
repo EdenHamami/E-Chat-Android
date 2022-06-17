@@ -31,9 +31,9 @@ public class chatPage extends AppCompatActivity {
     private String contactUserName;
     private String contactNameString;
     private RecyclerView messageRV;
+    private Contact currentContact;
     private MessagesListAdapter adapter;
-
-
+    private TextView tvContact;
 
     @SuppressLint("NotifyDataSetChanged")
     @Override
@@ -187,7 +187,6 @@ public class chatPage extends AppCompatActivity {
 
 
     }
-
 }
 //import android.annotation.SuppressLint;
 //        import android.content.Context;

@@ -126,9 +126,27 @@ public class chatPage extends AppCompatActivity {
             Message newMessage = new Message(contentString, currentTime.toString(), contactUserName, userName);
             messageDao.insert(newMessage);
 
+            messages.clear();
+
+            List<Message> allMessages1;
+            allMessages1 = getMessages();
+
+            allMessages1.addAll(messageDao.index());
+
+            for(int i = 0; i < allMessages1.size() ;i++) {
+                if((allMessages1.get(i).getFrom() == userName) && (allMessages1.get(i).getTo() == contactUserName)) {
+                    messages.add(allMessages1.get(i));
+                }
+                if((allMessages1.get(i).getFrom() == contactUserName) && (allMessages1.get(i).getTo() == userName)) {
+                    messages.add(allMessages1.get(i));
+                }
+            }
+
+
             messages.add(newMessage);
             adapter.setMessages(messages);
             adapter.notifyDataSetChanged();
+            messageRV.setAdapter(adapter);
 
 
             CreateMessageParam messageParam = new CreateMessageParam(contentString);
@@ -138,7 +156,7 @@ public class chatPage extends AppCompatActivity {
             TransferParam transferParam = new TransferParam(userName, contactUserName, contentString);
             NewMessage(transferParam);
 
-            onResume();
+//            onResume();
 
 
 //

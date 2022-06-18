@@ -97,8 +97,18 @@ public class ChatList extends AppCompatActivity {
         allContacts = getContacts();
         allContacts.addAll(contactDao.index());
 
+//        for(int i = 0; i < allContacts.size() ;i++) {
+//            if(allContacts.get(i).getUserName().equals(userName)) {
+//                contacts.add(allContacts.get(i));
+//            }
+//        }
+
+
         for(int i = 0; i < allContacts.size() ;i++) {
-            if(allContacts.get(i).getUserName().equals(userName)) {
+            if(Objects.equals(allContacts.get(i).getUserName(), userName)) {
+//                if(Objects.equals(allContacts.get(i+1).getId(), allContacts.get(i).getId())) {
+//                    i++;
+//                }
                 contacts.add(allContacts.get(i));
             }
         }
@@ -163,6 +173,9 @@ public class ChatList extends AppCompatActivity {
 
         for(int i = 0; i < allContacts.size() ;i++) {
             if(Objects.equals(allContacts.get(i).getUserName(), userName)) {
+//                if(Objects.equals(allContacts.get(i+1).getId(), allContacts.get(i).getId())) {
+//                    i++;
+//                }
                 contacts.add(allContacts.get(i));
             }
         }
@@ -198,6 +211,14 @@ public class ChatList extends AppCompatActivity {
                         Contact newContact = new Contact(myContactList.get(i).getId(), myContactList.get(i).getName(),
                                 myContactList.get(i).getServer(), myContactList.get(i).getLast(), myContactList.get(i).getLastDate(), userName);
                         contacts.add(newContact);
+
+                        if(myContactList.size() > (i+1)) {
+                            if (Objects.equals(myContactList.get(i + 1).getId(), myContactList.get(i).getId())) {
+                                i++;
+                            }
+                        }
+
+
                     }
                 }
 //                for(int i = 0; i < contacts.size(); i++) {

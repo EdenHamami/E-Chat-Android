@@ -101,7 +101,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="to login" />
+                android:text=" to login" />
         </LinearLayout>
 
 

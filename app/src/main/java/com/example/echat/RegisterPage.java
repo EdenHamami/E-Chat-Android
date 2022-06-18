@@ -7,26 +7,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Pattern;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Body;
 
 public class RegisterPage extends AppCompatActivity {
     private TextView here;
     private EditText userName,displayName,password,repeatPassword;
     private Button uploadPhoto;
+    private static final int IMAGE_PICK_GALLERY_CODE=100;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +41,7 @@ public class RegisterPage extends AppCompatActivity {
             public void onClick(View v) {
                 Intent photoIntent=new Intent(Intent.ACTION_PICK);
                 photoIntent.setType("image/*");
+
                 startActivityForResult(photoIntent,1);
             }
         });

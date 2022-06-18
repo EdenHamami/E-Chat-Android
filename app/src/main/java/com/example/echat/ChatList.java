@@ -62,15 +62,15 @@ public class ChatList extends AppCompatActivity {
     }
 
     private void putToken(PutTokenParam newToken) {
-        Call<PutTokenParam> call = RetrofitClient.getInstance().getMyApi().PutToken(newToken);
-        call.enqueue(new Callback<PutTokenParam>() {
+        Call<Void> call = RetrofitClient.getInstance().getMyApi().PutToken(newToken);
+        call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<PutTokenParam> call, Response<PutTokenParam> response) {
+            public void onResponse(Call<Void> call, Response<Void> response) {
                 Toast.makeText(ChatList.this, "Data added to API", Toast.LENGTH_SHORT).show();
             }
             @Override
-            public void onFailure(Call<PutTokenParam> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "An error has occured", Toast.LENGTH_LONG).show();
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "An error has occured in putToken", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -167,7 +167,7 @@ public class ChatList extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Contact>> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "An error has occured", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "An error has occured in getContacts", Toast.LENGTH_LONG).show();
             }
 
         });

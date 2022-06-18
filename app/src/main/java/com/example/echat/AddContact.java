@@ -62,14 +62,14 @@ public class AddContact extends AppCompatActivity {
     }
 
     private void createContact(CreateContactParam contact) {
-        Call<CreateContactParam> call = RetrofitClient.getInstance().getMyApi().createContact(userName, contact);
-        call.enqueue(new Callback<CreateContactParam>() {
+        Call<Void> call = RetrofitClient.getInstance().getMyApi().createContact(userName, contact);
+        call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<CreateContactParam> call, Response<CreateContactParam> response) {
+            public void onResponse(Call<Void> call, Response<Void> response) {
                 Toast.makeText(AddContact.this, "Data added to API", Toast.LENGTH_SHORT).show();
             }
             @Override
-            public void onFailure(Call<CreateContactParam> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "An error has occured", Toast.LENGTH_LONG).show();
             }
         });

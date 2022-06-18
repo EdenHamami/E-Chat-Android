@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<User>> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "An error has occured", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "An error has occured in getUsers", Toast.LENGTH_LONG).show();
             }
 
         });
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         }
-        return true;
+        return false;
 
     }
 

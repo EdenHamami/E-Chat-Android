@@ -74,16 +74,45 @@ public class chatPage extends AppCompatActivity {
         }
         contactName.setText(contactNameString);
 
-        messages = getMessages();
+        List<Message> allMessages;
+
+        messages = new ArrayList<>();
+//        messages.clear();
+
+        allMessages = getMessages();
+
+        db = MessageDB.getInstance(chatPage.this);
+
+        messageDao = db.messageDao();
+
+//        List<Message> deleteContactsFromDao = new ArrayList<>();
+//        deleteContactsFromDao.addAll(messageDao.index());
+//        for(int i = 0; i < deleteContactsFromDao.size(); i++) {
+//            messageDao.delete(deleteContactsFromDao.get(i).getMessage());
+//        }
+//        for(int i = 0; i < messages.size(); i++) {
+//            messageDao.insert(messages.get(i).getMessage());
+//        }
+
+        allMessages.addAll(messageDao.index());
+
+        List<Message> messagesOfUserAndContact = new ArrayList<>();
+
+        for(int i = 0; i < allMessages.size() ;i++) {
+            if((allMessages.get(i).getMessage().getFrom().equals(userName)) && (allMessages.get(i).getMessage().getTo().equals(contactUserName))) {
+                messages.add(allMessages.get(i).getMessage());
+            }
+            if((allMessages.get(i).getMessage().getFrom().equals(contactUserName)) && (allMessages.get(i).getMessage().getTo().equals(userName))) {
+                messages.add(allMessages.get(i).getMessage());
+            }
+        }
 
         adapter = new MessagesListAdapter(this, messages, userName);
         messageRV = findViewById(R.id.recycler_view);
         messageRV.setLayoutManager(new LinearLayoutManager(this));
         messageRV.setAdapter(adapter);
 
-        db = MessageDB.getInstance(chatPage.this);
 
-        messageDao = db.messageDao();
 
         FloatingActionButton sendBtn = findViewById(R.id.sendBtn);
 
@@ -130,12 +159,14 @@ public class chatPage extends AppCompatActivity {
                         }
                     }
                 }
+                adapter.setMessages(messages);
+                adapter.notifyDataSetChanged();
 
             }
 
             @Override
             public void onFailure(Call<List<GetMessagesParam>> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "An error has occured", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "An error has occured in getMessages", Toast.LENGTH_LONG).show();
             }
 
         });
@@ -143,31 +174,37 @@ public class chatPage extends AppCompatActivity {
     }
 
     private void createMessage(CreateMessageParam message) {
-        Call<CreateMessageParam> call = RetrofitClient.getInstance().getMyApi().createMessage(userName, contactUserName, message);
-        call.enqueue(new Callback<CreateMessageParam>() {
+        Call<Void> call = RetrofitClient.getInstance().getMyApi().createMessage(userName, contactUserName, message);
+        call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<CreateMessageParam> call, Response<CreateMessageParam> response) {
+            public void onResponse(Call<Void> call, Response<Void> response) {
                 Toast.makeText(chatPage.this, "Data added to API", Toast.LENGTH_SHORT).show();
+
+//                adapter.setMessages(messages);
+//                adapter.notifyDataSetChanged();
             }
 
             @Override
-            public void onFailure(Call<CreateMessageParam> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "An error has occured", Toast.LENGTH_LONG).show();
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "An error has occured in createMessage", Toast.LENGTH_LONG).show();
             }
         });
+
     }
 
     private void NewMessage(TransferParam newMessage) {
-        Call<TransferParam> call = RetrofitClient.getInstance().getMyApi().NewMessage(newMessage);
-        call.enqueue(new Callback<TransferParam>() {
+        Call<Void> call = RetrofitClient.getInstance().getMyApi().NewMessage(newMessage);
+        call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<TransferParam> call, Response<TransferParam> response) {
+            public void onResponse(Call<Void> call, Response<Void> response) {
                 Toast.makeText(chatPage.this, "Data added to API", Toast.LENGTH_SHORT).show();
+//                adapter.setMessages(messages);
+//                adapter.notifyDataSetChanged();
             }
 
             @Override
-            public void onFailure(Call<TransferParam> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "An error has occured", Toast.LENGTH_LONG).show();
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "An error has occured in NewMessage", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -177,103 +214,39 @@ public class chatPage extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         messages.clear();
-        messages.addAll(messageDao.index());
+
+        List<Message> allMessages;
+        allMessages = getMessages();
+
+        allMessages.addAll(messageDao.index());
+
+//        for(int i = 0; i < allMessages.size() ;i++) {
+//            if((allMessages.get(i).getFrom() == userName) && (allMessages.get(i).getTo() == contactUserName)) {
+//                messages.add(allMessages.get(i));
+//            }
+//            if((allMessages.get(i).getFrom() == contactUserName) && (allMessages.get(i).getTo() == userName)) {
+//                messages.add(allMessages.get(i));
+//            }
+//        }
+
+
+
+//        List<Message> messagesOfUserAndContact = new ArrayList<>();
+//
+//        for(int i = 0; i < messages.size() ;i++) {
+//            if(messages.get(i).getFrom() == userName && messages.get(i).getTo() == contactUserName) {
+//                messagesOfUserAndContact.add(messages.get(i));
+//            }
+//            if(messages.get(i).getFrom() == contactUserName && messages.get(i).getTo() == userName) {
+//                messagesOfUserAndContact.add(messages.get(i));
+//            }
+//        }
 
         adapter.setMessages(messages);
         adapter.notifyDataSetChanged();
         messageRV.setAdapter(adapter);
-     //   setContentView(R.layout.activity_chat_page);
-//        binding.recyclerView1.setVisibility(View.VISIBLE);
 
 
     }
 
 }
-//import android.annotation.SuppressLint;
-//        import android.content.Context;
-//        import android.content.Intent;
-//        import android.os.Bundle;
-//        import android.view.View;
-//        import android.view.inputmethod.InputMethodManager;
-//        import android.widget.Button;
-//        import android.widget.EditText;
-//        import android.widget.TextView;
-//
-//        import androidx.appcompat.app.AppCompatActivity;
-//        import androidx.recyclerview.widget.DividerItemDecoration;
-//        import androidx.recyclerview.widget.LinearLayoutManager;
-//        import androidx.recyclerview.widget.RecyclerView;
-//
-//        import com.example.myapplication.databinding.ActivityChatBinding;
-//
-//        import java.util.ArrayList;
-//        import java.util.List;
-//
-//public class ChatActivity extends AppCompatActivity {
-//
-//    private AppDb db;
-//    private MessagesDao messagesDao;
-//    private ContactDao contactDao;
-//    private List<Message> messages = new ArrayList<>();
-//    private MessagesAdapter adapter;
-//    private RecyclerView rcMessages;
-//    private TextView tvContact;
-//    private ActivityChatBinding binding;
-//    private Contact currentContact;
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        //setContentView(R.layout.activity_chat);
-//        binding = ActivityChatBinding.inflate(getLayoutInflater());
-//        setContentView(binding.getRoot());
-//        tvContact = findViewById(R.id.selected_contact);
-//        Intent intent = getIntent();
-//
-//        if (intent.getExtras() != null) {
-//            Contact contact = (Contact) intent.getSerializableExtra("data");
-//            tvContact.setText(contact.getId());
-//            currentContact = contact;
-//        }
-//        db = AppDb.getDb(this);
-////        db = Room.databaseBuilder(getApplicationContext(), AppDb.class, "messagesDB")
-////                .allowMainThreadQueries().build();
-//        messagesDao = db.messagesDao();
-//        contactDao = db.contactDao();
-//        messages = messagesDao.get(currentContact.getId());
-//
-//        adapter = new MessagesAdapter(this, messages);
-//        rcMessages = findViewById(R.id.recycler_view1);
-//        rcMessages.setLayoutManager(new LinearLayoutManager(this));
-//        rcMessages.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
-//        rcMessages.setAdapter(adapter);
-//
-//        Button btnSaveNewMessage = findViewById(R.id.btnSendMessage);
-//        btnSaveNewMessage.setOnClickListener(v -> {
-//            EditText newMessage = findViewById(R.id.message_box);
-//            String content = newMessage.getText().toString();
-//            Message message = new Message( content, currentContact.getId());
-//            messagesDao.insert(message);
-//            binding.messageBox.setText("");
-//            InputMethodManager inputManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
-//            inputManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
-//            onResume();
-//            currentContact.setLast(content);
-//            currentContact.setLastDate(message.getCreated());
-//            contactDao.update(currentContact);
-//        });
-//
-//    }
-//    @SuppressLint("NotifyDataSetChanged")
-//    @Override
-//    protected void onResume(){
-//        super.onResume();
-//        messages.clear();
-//        messages.addAll(messagesDao.get(currentContact.getId()));
-//        adapter.notifyDataSetChanged();
-//        rcMessages.setAdapter(adapter);
-//        //setContentView(R.layout.activity_chat);
-//        binding.recyclerView1.setVisibility(View.VISIBLE);
-//    }
-//
-//}

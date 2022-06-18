@@ -124,14 +124,14 @@ public class RegisterPage extends AppCompatActivity {
     }
 
     private void createUser(CreateUserParam user) {
-        Call<CreateUserParam> call = RetrofitClient.getInstance().getMyApi().createUser(user);
-        call.enqueue(new Callback<CreateUserParam>() {
+        Call<Void> call = RetrofitClient.getInstance().getMyApi().createUser(user);
+        call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<CreateUserParam> call, Response<CreateUserParam> response) {
+            public void onResponse(Call<Void> call, Response<Void> response) {
                 Toast.makeText(RegisterPage.this, "Data added to API", Toast.LENGTH_SHORT).show();
             }
             @Override
-            public void onFailure(Call<CreateUserParam> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "An error has occured", Toast.LENGTH_LONG).show();
             }
         });

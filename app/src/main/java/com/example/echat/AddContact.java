@@ -47,7 +47,7 @@ public class AddContact extends AppCompatActivity {
             String newContactUsername=contactsUserName.getText().toString();
             String newContactSever=contactServer.getText().toString();
 //            List<Message> messages=new ArrayList<Message>() {};
-            Contact contact=new Contact(newContactUsername,newContactName,newContactSever,null,null);
+            Contact contact=new Contact(newContactUsername,newContactName,newContactSever,null,null, userName);
             contactDao.insert(contact);
 
             CreateContactParam contactParam = new CreateContactParam(newContactUsername, newContactName, newContactSever);

@@ -18,7 +18,7 @@ public interface Api {
     Call<Void> createUser(@Body CreateUserParam user);
 
     @GET("contacts/{UserName}")
-    Call<List<Contact>> getContacts(@Path("UserName") String UserName);
+    Call<List<GetContactsParam>> getContacts(@Path("UserName") String UserName);
 
     @POST("contacts/{UserName}")
     Call<Void> createContact(@Path("UserName") String UserName, @Body CreateContactParam contact);

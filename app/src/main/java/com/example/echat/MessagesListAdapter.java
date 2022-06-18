@@ -64,7 +64,7 @@ public class MessagesListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType == MESSAGE_TYPE_IN) {
+        if (viewType == MESSAGE_TYPE_OUT) {
             return new MessageInViewHolder(LayoutInflater.from(context).inflate(R.layout.item_text_in, parent, false));
         }
         return new MessageOutViewHolder(LayoutInflater.from(context).inflate(R.layout.item_text_out, parent, false));
@@ -72,7 +72,7 @@ public class MessagesListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (getItemViewType(position) == MESSAGE_TYPE_IN) {
+        if (getItemViewType(position) == MESSAGE_TYPE_OUT) {
             ((MessageInViewHolder) holder).bind(position);
         } else {
             ((MessageOutViewHolder) holder).bind(position);

@@ -25,6 +25,8 @@ public class Contact {
     @SerializedName("lastdate")
     private String lastdate;
 
+    private String userName;
+
     public void setContactId(int contactId) {
         this.contactId = contactId;
     }
@@ -49,6 +51,11 @@ public class Contact {
         this.lastdate = lastdate;
     }
 
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+
 
 //    public void setMessages(List<Message> messages) {
 //        this.messages = messages;
@@ -71,12 +78,13 @@ public class Contact {
 //        //this.messages = messages;
 //    }
 
-    public Contact(String id, String name, String server, String last, String lastdate) {
+    public Contact(String id, String name, String server, String last, String lastdate, String userName) {
         this.id = id;
         this.name = name;
         this.server = server;
         this.last = last;
         this.lastdate = lastdate;
+        this.userName = userName;
         //this.messages = messages;
     }
 
@@ -109,6 +117,11 @@ public class Contact {
     public String getName() {
         return name;
     }
+
+    public String getUserName() {
+        return userName;
+    }
+
     @Override
     public String toString(){
         return "CONTACT{"+"id=" +id+" ,name="+name+'\''+"}";

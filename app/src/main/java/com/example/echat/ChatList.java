@@ -19,6 +19,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -77,20 +78,39 @@ public class ChatList extends AppCompatActivity {
 
     private void displayList() {
         contacts = new ArrayList<>();
-        contacts = getContacts();
+        //contacts = getContacts();
         db=AppDB.getInstance(ChatList.this);
         contactDao = db.contactDao();
 
 
-        List<Contact> deleteContactsFromDao = new ArrayList<>();
-        deleteContactsFromDao.addAll(contactDao.index());
-        for(int i = 0; i < deleteContactsFromDao.size(); i++) {
-            contactDao.delete(deleteContactsFromDao.get(i).getContact());
+//        List<Contact> deleteContactsFromDao = new ArrayList<>();
+//        deleteContactsFromDao.addAll(contactDao.index());
+//        for(int i = 0; i < deleteContactsFromDao.size(); i++) {
+//            contactDao.delete(deleteContactsFromDao.get(i).getContact());
+//        }
+//
+//        for(int i = 0; i < contacts.size(); i++) {
+//            contactDao.insert(contacts.get(i).getContact());
+//        }
+
+        List<Contact> allContacts = new ArrayList<>();
+        allContacts = getContacts();
+        allContacts.addAll(contactDao.index());
+
+        for(int i = 0; i < allContacts.size() ;i++) {
+            if(allContacts.get(i).getUserName().equals(userName)) {
+                contacts.add(allContacts.get(i));
+            }
         }
 
-        for(int i = 0; i < contacts.size(); i++) {
-            contactDao.insert(contacts.get(i).getContact());
-        }
+
+//            messages.add(newMessage);
+//        adapter.setMessages(messages);
+//        adapter.notifyDataSetChanged();
+//        messageRV.setAdapter(adapter);
+
+
+
         setOnClickListener();
         RecyclerView listContacts = findViewById(R.id.listContacts);
         adapter=new ContactsListAdapter(ChatList.this,listener);
@@ -101,6 +121,15 @@ public class ChatList extends AppCompatActivity {
     }
 
     private void setOnClickListener() {
+//        List<Contact> allContacts = new ArrayList<>();
+//        allContacts = getContacts();
+//        allContacts.addAll(contactDao.index());
+//
+//        for(int i = 0; i < allContacts.size() ;i++) {
+//            if(allContacts.get(i).getUserName() == userName) {
+//                contacts.add(allContacts.get(i));
+//            }
+//        }
         listener=new ContactsListAdapter.RecyclerViewClickListener() {
             @Override
             public void onClick(View view, int position) {
@@ -126,7 +155,19 @@ public class ChatList extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         contacts.clear();
-        contacts.addAll(contactDao.index());
+//        contacts.addAll(contactDao.index());
+
+        List<Contact> allContacts = new ArrayList<>();
+        allContacts = getContacts();
+        allContacts.addAll(contactDao.index());
+
+        for(int i = 0; i < allContacts.size() ;i++) {
+            if(Objects.equals(allContacts.get(i).getUserName(), userName)) {
+                contacts.add(allContacts.get(i));
+            }
+        }
+
+
         adapter.setContacts(contacts);
         adapter.notifyDataSetChanged();
     }
@@ -144,20 +185,24 @@ public class ChatList extends AppCompatActivity {
 
     private List<Contact> getContacts() {
         List<Contact> contacts= new ArrayList<>();
-        Call<List<Contact>> call = RetrofitClient.getInstance().getMyApi().getContacts(userName);
-        call.enqueue(new Callback<List<Contact>>() {
+        Call<List<GetContactsParam>> call = RetrofitClient.getInstance().getMyApi().getContacts(userName);
+        call.enqueue(new Callback<List<GetContactsParam>>() {
             @Override
-            public void onResponse(Call<List<Contact>> call, Response<List<Contact>> response) {
-                List<Contact> myContactList = response.body();
+            public void onResponse(Call<List<GetContactsParam>> call, Response<List<GetContactsParam>> response) {
+                contacts.clear();
+                List<GetContactsParam> myContactList = response.body();
                 //users.set(0, new User[myUserList.size()]);
                 if(myContactList != null) {
                     for (int i = 0; i < myContactList.size(); i++) {
-                        contacts.add(myContactList.get(i).getContact());
+
+                        Contact newContact = new Contact(myContactList.get(i).getId(), myContactList.get(i).getName(),
+                                myContactList.get(i).getServer(), myContactList.get(i).getLast(), myContactList.get(i).getLastDate(), userName);
+                        contacts.add(newContact);
                     }
                 }
-                for(int i = 0; i < contacts.size(); i++) {
-                    contactDao.insert(contacts.get(i).getContact());
-                }
+//                for(int i = 0; i < contacts.size(); i++) {
+//                    contactDao.insert(contacts.get(i).getContact());
+//                }
                 adapter.setContacts(contacts);
                 adapter.notifyDataSetChanged();
 
@@ -166,7 +211,7 @@ public class ChatList extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<Contact>> call, Throwable t) {
+            public void onFailure(Call<List<GetContactsParam>> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "An error has occured in getContacts", Toast.LENGTH_LONG).show();
             }
 

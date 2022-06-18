@@ -96,7 +96,7 @@ public class chatPage extends AppCompatActivity {
 
         allMessages.addAll(messageDao.index());
 
-        List<Message> messagesOfUserAndContact = new ArrayList<>();
+//        List<Message> messagesOfUserAndContact = new ArrayList<>();
 
         for(int i = 0; i < allMessages.size() ;i++) {
             if((allMessages.get(i).getMessage().getFrom().equals(userName)) && (allMessages.get(i).getMessage().getTo().equals(contactUserName))) {
@@ -125,7 +125,10 @@ public class chatPage extends AppCompatActivity {
 
             Message newMessage = new Message(contentString, currentTime.toString(), contactUserName, userName);
             messageDao.insert(newMessage);
-            onResume();
+
+            messages.add(newMessage);
+            adapter.setMessages(messages);
+            adapter.notifyDataSetChanged();
 
 
             CreateMessageParam messageParam = new CreateMessageParam(contentString);
@@ -134,6 +137,10 @@ public class chatPage extends AppCompatActivity {
 
             TransferParam transferParam = new TransferParam(userName, contactUserName, contentString);
             NewMessage(transferParam);
+
+            onResume();
+
+
 //
 //            finish();
         });
@@ -147,6 +154,7 @@ public class chatPage extends AppCompatActivity {
         call.enqueue(new Callback<List<GetMessagesParam>>() {
             @Override
             public void onResponse(Call<List<GetMessagesParam>> call, Response<List<GetMessagesParam>> response) {
+                messages.clear();
                 List<GetMessagesParam> myMessageList = response.body();
                 if (myMessageList != null) {
                     for (int i = 0; i < myMessageList.size(); i++) {
@@ -220,14 +228,14 @@ public class chatPage extends AppCompatActivity {
 
         allMessages.addAll(messageDao.index());
 
-//        for(int i = 0; i < allMessages.size() ;i++) {
-//            if((allMessages.get(i).getFrom() == userName) && (allMessages.get(i).getTo() == contactUserName)) {
-//                messages.add(allMessages.get(i));
-//            }
-//            if((allMessages.get(i).getFrom() == contactUserName) && (allMessages.get(i).getTo() == userName)) {
-//                messages.add(allMessages.get(i));
-//            }
-//        }
+        for(int i = 0; i < allMessages.size() ;i++) {
+            if((allMessages.get(i).getFrom() == userName) && (allMessages.get(i).getTo() == contactUserName)) {
+                messages.add(allMessages.get(i));
+            }
+            if((allMessages.get(i).getFrom() == contactUserName) && (allMessages.get(i).getTo() == userName)) {
+                messages.add(allMessages.get(i));
+            }
+        }
 
 
 

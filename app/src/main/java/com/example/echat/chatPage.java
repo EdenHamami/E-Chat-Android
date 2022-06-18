@@ -123,6 +123,13 @@ public class chatPage extends AppCompatActivity {
             String contentString = content.getText().toString();
             Date currentTime = Calendar.getInstance().getTime();
 
+            CreateMessageParam messageParam = new CreateMessageParam(contentString);
+
+            createMessage(messageParam);
+
+            TransferParam transferParam = new TransferParam(userName, contactUserName, contentString);
+            NewMessage(transferParam);
+
             Message newMessage = new Message(contentString, currentTime.toString(), contactUserName, userName);
             messageDao.insert(newMessage);
 
@@ -143,18 +150,13 @@ public class chatPage extends AppCompatActivity {
             }
 
 
-            messages.add(newMessage);
+//            messages.add(newMessage);
             adapter.setMessages(messages);
             adapter.notifyDataSetChanged();
             messageRV.setAdapter(adapter);
 
 
-            CreateMessageParam messageParam = new CreateMessageParam(contentString);
 
-            createMessage(messageParam);
-
-            TransferParam transferParam = new TransferParam(userName, contactUserName, contentString);
-            NewMessage(transferParam);
 
 //            onResume();
 
@@ -239,21 +241,25 @@ public class chatPage extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        messages.clear();
+//        messages.clear();
+//
+//        List<Message> allMessages;
+//        allMessages = getMessages();
+//
+//        allMessages.addAll(messageDao.index());
+//
+//        for(int i = 0; i < allMessages.size() ;i++) {
+//            if((allMessages.get(i).getFrom() == userName) && (allMessages.get(i).getTo() == contactUserName)) {
+//                messages.add(allMessages.get(i));
+//            }
+//            if((allMessages.get(i).getFrom() == contactUserName) && (allMessages.get(i).getTo() == userName)) {
+//                messages.add(allMessages.get(i));
+//            }
+//        }
 
-        List<Message> allMessages;
-        allMessages = getMessages();
-
-        allMessages.addAll(messageDao.index());
-
-        for(int i = 0; i < allMessages.size() ;i++) {
-            if((allMessages.get(i).getFrom() == userName) && (allMessages.get(i).getTo() == contactUserName)) {
-                messages.add(allMessages.get(i));
-            }
-            if((allMessages.get(i).getFrom() == contactUserName) && (allMessages.get(i).getTo() == userName)) {
-                messages.add(allMessages.get(i));
-            }
-        }
+//        adapter.setMessages(messages);
+//        adapter.notifyDataSetChanged();
+//        messageRV.setAdapter(adapter);
 
 
 
@@ -268,9 +274,7 @@ public class chatPage extends AppCompatActivity {
 //            }
 //        }
 
-        adapter.setMessages(messages);
-        adapter.notifyDataSetChanged();
-        messageRV.setAdapter(adapter);
+
 
 
     }

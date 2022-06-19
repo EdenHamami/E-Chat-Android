@@ -67,11 +67,11 @@ public class ChatList extends AppCompatActivity {
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                Toast.makeText(ChatList.this, "Data added to API", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(ChatList.this, "Data added to API", Toast.LENGTH_SHORT).show();
             }
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "An error has occured in putToken", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "An error has occured in putToken", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -233,7 +233,7 @@ public class ChatList extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<GetContactsParam>> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "An error has occured in getContacts", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "An error has occured in getContacts", Toast.LENGTH_LONG).show();
             }
 
         });

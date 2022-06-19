@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<User>> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "An error has occured in getUsers", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "An error has occured in getUsers", Toast.LENGTH_LONG).show();
             }
 
         });

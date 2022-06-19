@@ -66,11 +66,11 @@ public class AddContact extends AppCompatActivity {
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                Toast.makeText(AddContact.this, "Data added to API", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(AddContact.this, "Data added to API", Toast.LENGTH_SHORT).show();
             }
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "An error has occured", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "An error has occured", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -79,11 +79,11 @@ public class AddContact extends AppCompatActivity {
         call.enqueue(new Callback<InvitationsParam>() {
             @Override
             public void onResponse(Call<InvitationsParam> call, Response<InvitationsParam> response) {
-                Toast.makeText(AddContact.this, "Data added to API", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(AddContact.this, "Data added to API", Toast.LENGTH_SHORT).show();
             }
             @Override
             public void onFailure(Call<InvitationsParam> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "An error has occured", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "An error has occured", Toast.LENGTH_LONG).show();
             }
         });
     }

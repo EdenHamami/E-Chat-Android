@@ -123,11 +123,11 @@ public class RegisterPage extends AppCompatActivity {
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                Toast.makeText(RegisterPage.this, "Data added to API", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(RegisterPage.this, "Data added to API", Toast.LENGTH_SHORT).show();
             }
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "An error has occured", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "An error has occured", Toast.LENGTH_LONG).show();
             }
         });
     }

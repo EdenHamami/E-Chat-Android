@@ -194,7 +194,7 @@ public class chatPage extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<GetMessagesParam>> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "An error has occured in getMessages", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "An error has occured in getMessages", Toast.LENGTH_LONG).show();
             }
 
         });
@@ -206,7 +206,7 @@ public class chatPage extends AppCompatActivity {
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                Toast.makeText(chatPage.this, "Data added to API", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(chatPage.this, "Data added to API", Toast.LENGTH_SHORT).show();
 
 //                adapter.setMessages(messages);
 //                adapter.notifyDataSetChanged();
@@ -214,7 +214,7 @@ public class chatPage extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "An error has occured in createMessage", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "An error has occured in createMessage", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -225,14 +225,14 @@ public class chatPage extends AppCompatActivity {
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                Toast.makeText(chatPage.this, "Data added to API", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(chatPage.this, "Data added to API", Toast.LENGTH_SHORT).show();
 //                adapter.setMessages(messages);
 //                adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "An error has occured in NewMessage", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "An error has occured in NewMessage", Toast.LENGTH_LONG).show();
             }
         });
     }
